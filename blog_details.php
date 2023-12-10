@@ -1,8 +1,9 @@
 <?php
-//$blog_id=$_GET['id'];
+$blog_id = $_GET['id'];
 require_once './class/application.php';
 $blog = new Application();
-$query_result = $blog->selectAllPublishedBlog();
+$query_result = $blog->selectBlogInfoById($blog_id);
+$blog_info = mysqli_fetch_assoc($query_result);
 ?>
 <!doctype html>
 <html lang="en">
@@ -28,7 +29,7 @@ $query_result = $blog->selectAllPublishedBlog();
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Blog Management</a>
+                <a class="navbar-brand" href="index.php">Home</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <form class="navbar-form navbar-right">
@@ -43,9 +44,10 @@ $query_result = $blog->selectAllPublishedBlog();
             </div>
         </div>
     </nav>
+
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, Blog Mnagement!</h1>
+            <h1>Hello, Blog Details!</h1>
             <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
             <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
         </div>
@@ -53,28 +55,27 @@ $query_result = $blog->selectAllPublishedBlog();
 
     <div class="container">
         <div class="row">
-            <?php
-            $i = 1;
-            while ($blog_info = mysqli_fetch_assoc($query_result)) {
-            ?>
-                <div class="col-md-4">
-                    <div class="well"> <img src="../blog_info/admin/<?php echo $blog_info['blog_image']; ?>" alt="" width="320px" height="250px"></div>
-                    <h2><?php echo $blog_info['blog_title']; ?><small>-<?php echo $blog_info['author_name']; ?></small></h2>
-                    <p><?php echo mb_substr($blog_info['blog_description'], 0, 50); ?></p>
-                    <p><a class="btn btn-default" href="blog_details.php?id=<?php echo $blog_info['blog_id']; ?>&&title=<?php echo $blog_info['blog_title']; ?>" role="button">View Blog details &raquo;</a></p>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="well"> <img src="../blog_info/admin/<?php echo $blog_info['blog_image']; ?>" alt="" class="img-responsive"></div>
+                        <h2><?php echo $blog_info['blog_title']; ?></h2>
+                        <p><?php echo $blog_info['author_name']; ?></p>
+                        <hr>
+                        <p><?php echo $blog_info['blog_description']; ?></p>
+                    </div>
                 </div>
-            <?php } ?>
+            </div>
         </div>
         <hr>
         <footer>
-            <p>&copy; 2024 Company, Inc.</p>
+            <p>&copy; 2016 Company, Inc.</p>
         </footer>
     </div>
     <script>
         window.jQuery || document.write('<script src="asset/js/jquery-3.4.1.min.js"><\/script>')
     </script>
     <script src="asset/js/bootstrap.min.js"></script>
-
 </body>
 
 </html>
