@@ -55,7 +55,7 @@ if (isset($_POST['btn'])) {
                                                         ?></h3>
                 <hr />
                 <div class="well">
-                    <form class="form-horizontal" action="" method="post">
+                    <form class="form-horizontal" action="" method="post" name="editForm">
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">Blog Title</label>
                             <div class="col-sm-10">
@@ -81,7 +81,7 @@ if (isset($_POST['btn'])) {
                                 <select class="form-control" name="publication_status">
                                     <option>
                                         <?php
-                                        echo $blog_info['publication_status'];
+                                        // echo $blog_info['publication_status'];
                                         // if ($blog_info['publication_status'] == '1') {
                                         //     echo 'Published';
                                         // } else {
@@ -89,6 +89,7 @@ if (isset($_POST['btn'])) {
                                         // }
                                         ?>
                                     </option>
+                                    <option value="">Select One</option>
                                     <option value="1">Published</option>
                                     <option value="0">Unpublished</option>
                                 </select>
@@ -104,6 +105,9 @@ if (isset($_POST['btn'])) {
             </div>
         </div>
     </div>
+    <script>
+        document.forms['editForm'].elements['publication_status'].value = <?php echo $blog_info['publication_status']; ?>
+    </script>
     <script src="../asset/js/jquery-3.4.1.min.js"></script>
     <script src="../asset/js/bootstrap.min.js"></script>
 </body>
